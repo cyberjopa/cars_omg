@@ -1,5 +1,6 @@
 import os
 
+
 class Car:
     def __init__(self, brand, model, year, color, mileage, price, is_stolen, max_speed):
         self.brand = brand
@@ -13,6 +14,7 @@ class Car:
 
     def __str__(self):
         return f"{self.brand:<15} {self.model:<15} {self.year:<5} {self.color:<10} {self.mileage:<10} {self.price:<10} {'Да' if self.is_stolen else 'Нет':<5} {self.max_speed:<10}"
+
 
 class CarDatabase:
     FILENAME = 'cars.txt'
@@ -67,10 +69,11 @@ class CarDatabase:
         color = input("Введите цвет: ")
         mileage = int(input("Введите пробег: "))
         price = float(input("Введите цену: "))
-        is_stolen = input("Находится ли в угоне (1 - Да, 0 - Нет): ") == "1"
+        is_brand_new = input("Был было кражи? (1 - Да, 0 - Нет): ") == "1"
         max_speed = float(input("Введите максимальную скорость: "))
 
-        new_car = Car(brand, model, year, color, mileage, price, is_stolen, max_speed)
+        new_car = Car(brand, model, year, color, mileage,
+                      price, is_brand_new, max_speed)
         self.cars.append(new_car)
         print("Автомобиль добавлен.")
         self.save_data()
@@ -86,8 +89,10 @@ class CarDatabase:
             print("Некорректный номер.")
 
     def search_car(self):
-        criterion = input("Введите значение для поиска (марка, модель, цвет): ")
-        results = [car for car in self.cars if criterion in (car.brand, car.model, car.color)]
+        criterion = input(
+            "Введите значение для поиска (марка, модель, цвет): ")
+        results = [car for car in self.cars if criterion in (
+            car.brand, car.model, car.color)]
 
         if not results:
             print("Машины не найдены.")
@@ -102,7 +107,8 @@ class CarDatabase:
         index = int(input("Введите номер машины для изменения: ")) - 1
         if 0 <= index < len(self.cars):
             car = self.cars[index]
-            column = int(input("Введите номер столбца для изменения (1 - марка, 2 - модель, 3 - год, 4 - цвет, 5 - пробег, 6 - цена, 7 - угнан, 8 - макс. скорость): "))
+            column = int(input(
+                "Введите номер столбца для изменения (1 - марка, 2 - модель, 3 - год, 4 - цвет, 5 - пробег, 6 - цена, 7 - угнан, 8 - макс. скорость): "))
 
             if column == 1:
                 car.brand = input("Введите новую марку: ")
@@ -117,9 +123,11 @@ class CarDatabase:
             elif column == 6:
                 car.price = float(input("Введите новую цену: "))
             elif column == 7:
-                car.is_stolen = input("Находится ли в угоне (1 - Да, 0 - Нет): ") == "1"
+                car.is_stolen = input(
+                    "Находится ли в угоне (1 - Да, 0 - Нет): ") == "1"
             elif column == 8:
-                car.max_speed = float(input("Введите новую максимальную скорость: "))
+                car.max_speed = float(
+                    input("Введите новую максимальную скорость: "))
             else:
                 print("Некорректный номер столбца.")
                 return
@@ -128,6 +136,7 @@ class CarDatabase:
             self.save_data()
         else:
             print("Некорректный номер.")
+
 
 def main():
     db = CarDatabase()
@@ -156,6 +165,7 @@ def main():
             break
         else:
             print("Некорректный выбор. Пожалуйста, попробуйте еще раз.")
+
 
 if __name__ == "__main__":
     main()
