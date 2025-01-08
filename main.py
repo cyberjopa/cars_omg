@@ -1,6 +1,6 @@
 import os
 
-#Это надо переделать
+#Это надо ваще заново все
 class Car:
     def __init__(self, brand, model, year, color, mileage, price, is_stolen, max_speed):
         self.brand = brand
